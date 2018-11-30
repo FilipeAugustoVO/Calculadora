@@ -259,6 +259,7 @@
             this.btnIgual.TabIndex = 2;
             this.btnIgual.Text = "=";
             this.btnIgual.UseVisualStyleBackColor = true;
+            this.btnIgual.Click += new System.EventHandler(this.btnIgual_Click);
             // 
             // btnRaizQuadrada
             // 

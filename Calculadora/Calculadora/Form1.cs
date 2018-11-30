@@ -82,13 +82,13 @@ namespace Calculadora
         {
             txtVisor.Clear(); //apaga o que está no Visor da Calculadora    
             txtHistorico.Clear();
-            /*
+            
             valorAnterior = 0;
 
             operacao = "";
             primeiraOperacao = true;
             botaoIgual = false;
-            */
+            
         }
 
         private void btnBackspace_Click(object sender, EventArgs e)
@@ -104,7 +104,7 @@ namespace Calculadora
 
         private void btnAdicao_Click(object sender, EventArgs e)
         {
-            /*
+            
             if (primeiraOperacao)
             {
                 valorAnterior = Convert.ToDouble(txtVisor.Text);
@@ -126,7 +126,40 @@ namespace Calculadora
                 txtHistorico.Text += operacao + txtVisor.Text;
 
                 txtVisor.Text = Convert.ToString(valorAnterior + ValorVisor);
-            }*/
+            }
+        }
+
+        private void btnIgual_Click(object sender, EventArgs e)
+        {
+            //1. Se click no btnIgual, variavel valorVisor receberá o ultimo número exibido no visor.
+            valorVisor = Convert.ToDouble(txtVisor.Text);
+
+            //2. Sinal da operação anterior e o conteudo do txtVisor adicionados no txtHistorico
+            txtHistorico.Text += óperacao + txtVisor.Text;
+
+            //3. Resultado cálculo realizado antes de clicarnos no botão de igual deve ser exibido no txtVisor.
+            //Porém, quando programamos os botões das operações, já definimos qual era a operação realizada (adição, subtração, multiplicação ou divisão)
+            txtVisor.Text = Convert.ToString(Calculo());
+
+            //4. Depois, é adicionado txtHistorico o sinal de igual e o resultado do calculo, que será mostrado no visor.
+            txtHistorico.Text += "=" + txtVisor.Text;
+
+            //5. Dai, a variável valorAnterior passar a ser o que estiver no txtVisor, que no caso é o resultado do ultimo cálculo realizado
+            valorAnterior = Convert.ToDouble(txtVisor.Text);
+
+            //6. Já que o resultado está sendo exibido, a variável botãoIgual fica como true.
+            botaoIgual = true;
+            //Após clicar no botão de igual, podemos clicar em outro numero para iniciar outras operações,
+            //pois definimos que variável PrimeiraOperacao passa a ser true.
+            primeiroOperacao = true;
+        }
+
+        public double Calculo()
+        {
+            switch (operacao)
+            {
+               
+            }
         }
     }    
 }   
