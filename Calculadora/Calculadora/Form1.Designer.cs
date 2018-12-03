@@ -218,6 +218,7 @@
             this.btnSubtracao.TabIndex = 2;
             this.btnSubtracao.Text = "-";
             this.btnSubtracao.UseVisualStyleBackColor = true;
+            this.btnSubtracao.Click += new System.EventHandler(this.btnSubtracao_Click);
             // 
             // btnAdicao
             // 
@@ -239,6 +240,7 @@
             this.btnDivisao.TabIndex = 2;
             this.btnDivisao.Text = "/";
             this.btnDivisao.UseVisualStyleBackColor = true;
+            this.btnDivisao.Click += new System.EventHandler(this.btnDivisao_Click);
             // 
             // btnMultiplicacao
             // 
@@ -249,6 +251,7 @@
             this.btnMultiplicacao.TabIndex = 2;
             this.btnMultiplicacao.Text = "X";
             this.btnMultiplicacao.UseVisualStyleBackColor = true;
+            this.btnMultiplicacao.Click += new System.EventHandler(this.btnMultiplicacao_Click);
             // 
             // btnIgual
             // 
@@ -270,6 +273,7 @@
             this.btnRaizQuadrada.TabIndex = 2;
             this.btnRaizQuadrada.Text = "√";
             this.btnRaizQuadrada.UseVisualStyleBackColor = true;
+            this.btnRaizQuadrada.Click += new System.EventHandler(this.btnRaizQuadrada_Click);
             // 
             // Form1
             // 

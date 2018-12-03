@@ -19,6 +19,10 @@ namespace Calculadora
 
         private void btn_Click(object sender, EventArgs e)
         {
+            if(txtVisor.Text == "0") // se o visor estiver com o numero 0, é pra limpa-lo.
+            {
+                txtVisor.Clear();
+            }
             Button botaoAcionado = (Button)sender; //O objeto botão que foi clicado será carregado no BotãoACionado
 
             switch (botaoAcionado.Name) //Verifica o nome do botão acionado
@@ -84,6 +88,7 @@ namespace Calculadora
             txtHistorico.Clear();
             
             valorAnterior = 0;
+            valorVisor = 0;
 
             operacao = "";
             primeiraOperacao = true;
@@ -103,29 +108,34 @@ namespace Calculadora
         }
 
         private void btnAdicao_Click(object sender, EventArgs e)
-        {
-            
+        {            
             if (primeiraOperacao)
             {
                 valorAnterior = Convert.ToDouble(txtVisor.Text);
 
                 if (botaoIgual == false)
                 {
-                    txtHistorico.Text += txtVisor.Text;
+                    txtHistorico.Text += txtVisor.Text; // txtHistorico adiciona o que estiver no txtVisor
                 }
 
-                txtVisor.Clear();
-                operacao = "+";
-                primeiraOperacao = false;
+                txtVisor.Clear(); //limpa o txtVisor
+                operacao = "+"; //determina que a operacao realizada é a adição
+                primeiraOperacao = false; //PrimeiraOperacao passa a ser false
             }
             else
 
             {
-                valorVisor = Convert.ToDouble(txtVisor.Text);
+                valorVisor = Convert.ToDouble(txtVisor.Text); //converte o numero do txtVisor para double
 
-                txtHistorico.Text += operacao + txtVisor.Text;
+                txtHistorico.Text += operacao + txtVisor.Text; //o txtHistorico recebe a operação realizada anteriormente e o numero do Visor
 
-                txtVisor.Text = Convert.ToString(valorAnterior + ValorVisor);
+                //txtVisor.Text = Convert.ToString(valorAnterior + ValorVisor); //realiza as soma dos números e exibe no txtVisor
+                txtVisor.Text = Convert.ToString(Calculo)); //realiza a soma dos números e exibe no txtVisor.
+
+                operacao = "+"; //determina que a operacao realizada é adição
+                txtHistorico.Text += "=" + txtVisor.Text; //txtHistorico recebe o sinal de = e o ultimo número inserido no txtVisor
+                valorAnterior = Convert.ToDouble(txtVisor.Text); //valor anterior passa a ser o que estiver no txtVisor    
+                botaoIgual = true; //async variável igual passa a ser true
             }
         }
 
@@ -149,17 +159,190 @@ namespace Calculadora
 
             //6. Já que o resultado está sendo exibido, a variável botãoIgual fica como true.
             botaoIgual = true;
-            //Após clicar no botão de igual, podemos clicar em outro numero para iniciar outras operações,
+            //7. Após clicar no botão de igual, podemos clicar em outro numero para iniciar outras operações,
             //pois definimos que variável PrimeiraOperacao passa a ser true.
             primeiroOperacao = true;
         }
 
+        
+
+        private void btnMultiplicacao_Click(object sender, EventArgs e)
+        {
+            if(primeiraOperacao)
+            {
+                //1. Quando for primeira operaçção, número no visor é armazenado na variável ValorAnterior
+                valorAnterior = Convert.ToDouble(txtVisor.Text);
+
+                if(botaoIgual == false)
+                {
+                    txtHistorico.Text += txtVisor.Text;
+                }
+
+                txtVisor.Clear();
+                operacao = "x";
+                primeiraOperacao = false;                                
+            }
+            else
+            {
+                //2. Ao clicamos em algum botão de operação, seguido de outro número, e novamente no botão de operação
+                //Esse ultimo número inserido será armazenado na variável valorVisor
+                valorVisor = Convert.ToDouble(txtVisor.Text);
+
+                txtHistorico.Text += operacao + txtVisor.Text;
+
+                //3. Resultado do visor será convertido em string
+                txtVisor.Text = Convert.ToString(Calculo());
+
+                operacao = "x";
+                txtHistorico.Text += "=" + txtVisor.Text;
+                valorAnterior = Convert.ToDouble(txtVisor.Text);
+                botaoIgual = true;
+            }
+        }
+        
+        /* //depreciado, ver classe ObjetoCalculo
         public double Calculo()
         {
-            switch (operacao)
+            switch (operacao)//metodo para verificar qual operação deverá ser realizada
             {
-               
+                case "+":
+                    valorAnterior = valorAnterior + valorVisor;
+                    break;
+
+                case "-":
+                    valorAnterior = valorAnterior - valorVisor;
+                    break;
+
+                case "x":
+                    valorAnterior = valorAnterior * valorVisor;
+                    break;
+
+                case "/":
+                    valorAnterior = valorAnterior / valorVisor;
+                    break;
+
+                case "√":
+
+                    /*double valorRaiz = valorVisor;
+                    
+                    for (int i = 0; i < 10; i++)
+                    {
+                        valorRaiz = (valorRaiz / 2) + valorVisor / (2 * valorRaiz);
+                    }
+
+                    valorResultado = valorRaiz;
+                    */
+
+                    valorResultado = Math.Sqrt(valorVisor);
+                    break;
+
+                default:
+                    break;
             }
+
+            return valorAnterior;
+        }
+        */
+
+        private void btnSubtracao_Click(object sender, EventArgs e)
+        {
+            if (primeiraOperacao)
+            {
+                valorAnterior = Convert.ToDouble(txtVisor.Text);
+
+                if (botaoIgual == false)
+                {
+                    txtHistorico.Text += txtVisor.Text; // txtHistorico adiciona o que estiver no txtVisor
+                }
+
+                txtVisor.Clear(); //limpa o txtVisor
+                operacao = "-"; //determina que a operacao realizada é a adição
+                primeiraOperacao = false; //PrimeiraOperacao passa a ser false
+            }
+            else
+
+            {
+                valorVisor = Convert.ToDouble(txtVisor.Text); //converte o numero do txtVisor para double
+
+                txtHistorico.Text += operacao + txtVisor.Text; //o txtHistorico recebe a operação realizada anteriormente e o numero do Visor
+
+                //txtVisor.Text = Convert.ToString(valorAnterior + ValorVisor); //realiza as soma dos números e exibe no txtVisor
+                txtVisor.Text = Convert.ToString(Calculo)); //realiza a soma dos números e exibe no txtVisor.
+
+                operacao = "-"; //determina que a operacao realizada é adição
+                txtHistorico.Text += "=" + txtVisor.Text; //txtHistorico recebe o sinal de = e o ultimo número inserido no txtVisor
+                valorAnterior = Convert.ToDouble(txtVisor.Text); //valor anterior passa a ser o que estiver no txtVisor    
+                botaoIgual = true; //async variável igual passa a ser true
+            }
+        }
+
+        private void btnDivisao_Click(object sender, EventArgs e)
+        {
+            if (primeiraOperacao)
+            {
+                valorAnterior = Convert.ToDouble(txtVisor.Text);
+
+                if (botaoIgual == false)
+                {
+                    txtHistorico.Text += txtVisor.Text; // txtHistorico adiciona o que estiver no txtVisor
+                }
+
+                txtVisor.Clear(); //limpa o txtVisor
+                operacao = "/"; //determina que a operacao realizada é a adição
+                primeiraOperacao = false; //PrimeiraOperacao passa a ser false
+            }
+            else
+
+            {
+                valorVisor = Convert.ToDouble(txtVisor.Text); //converte o numero do txtVisor para double
+
+                txtHistorico.Text += operacao + txtVisor.Text; //o txtHistorico recebe a operação realizada anteriormente e o numero do Visor
+
+                //txtVisor.Text = Convert.ToString(valorAnterior + ValorVisor); //realiza as soma dos números e exibe no txtVisor
+                txtVisor.Text = Convert.ToString(Calculo)); //realiza a soma dos números e exibe no txtVisor.
+
+                operacao = "/"; //determina que a operacao realizada é adição
+                txtHistorico.Text += "=" + txtVisor.Text; //txtHistorico recebe o sinal de = e o ultimo número inserido no txtVisor
+                valorAnterior = Convert.ToDouble(txtVisor.Text); //valor anterior passa a ser o que estiver no txtVisor    
+                botaoIgual = true; //async variável igual passa a ser true
+            }
+        }
+
+        private void btnRaizQuadrada_Click(object sender, EventArgs e)
+        {
+            if(PrimeiraOperacao)
+            {
+                operacao = "√";
+            }
+
+            valorVisor = Convert.ToDouble(txtVisor.Text);
+            txtHistorico.Text += operacao + txtVisor.Text;
+
+            ObjetoCalculo novoCalculo = new ObjetoCalculo Calculo();
+
+            novoCalculo.ValorVisor = this.ValorVisor;
+            novoCalculo.valorAnterior = this.valorAnterior;
+            novoCalculo.operacao = this.operacao;
+
+            txtVisor.Text = Convert.ToString(novoCalculo.Calculo());
+
+            operacao = "√";
+            txtHistorico.Text += "=" + txtVisor.Text;
+            valorAnterior = Convert.ToDouble(txtVisor.Text);
+
+            if(novoCalculo.Operacao != "√")
+            {
+                txtHistorico.Text += "=" + operacao + txtVisor.Text;
+
+                valorVisor = Convert.ToDouble(txtVisor.Text);
+
+                novoCalculo.operacao  this.operacao;
+                novoCalculo.valorVisor = this.valorVisor;
+
+                txtVisor.Text = Convert.ToString(novoCalculo.Calculo());
+
+                txtHistorico.Text += "=" + txtVisor.Text;
+            } 
         }
     }    
 }   
